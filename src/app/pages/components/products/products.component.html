@@ -59,7 +59,7 @@
           <div class="modal-header">
             <h2>{{ selectedItem?.nome }}</h2>
             <ion-button fill="clear" (click)="modal.dismiss()" size="small">
-              <ion-icon name="close" slot="icon-only"></ion-icon>
+              <ion-icon name="close"></ion-icon>
             </ion-button>
           </div>
 
@@ -94,7 +94,7 @@
             <ion-icon name="add-outline"></ion-icon>
           </ion-button>
         </div>
-        <ion-button color="danger" expand="block" (click)="adicionarAoPedido()">
+        <ion-button color="primary" expand="block" (click)="adicionarAoPedido()">
           Adicionar R$ {{ calcularTotal() | number:'1.2-2' }}
         </ion-button>
       </div>

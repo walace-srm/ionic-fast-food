@@ -4,8 +4,7 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
-  IonItem,
-  IonList,
+
   IonMenu,
   IonMenuButton,
   IonTitle,
@@ -20,11 +19,9 @@ register();
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   imports: [
-    RouterModule, // necessário para <router-outlet>
+    RouterModule,
     IonMenu,
     IonHeader,
-    IonItem,
-    IonList,
     IonToolbar,
     IonTitle,
     IonContent,
@@ -34,7 +31,7 @@ register();
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppComponent {
- 
+
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {
   }

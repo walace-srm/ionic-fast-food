@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastrar Produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <ion-item>
+      <ion-label position="stacked">Nome *</ion-label>
+      <ion-input formControlName="nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Descrição</ion-label>
+      <ion-textarea formControlName="descricao"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Preço *</ion-label>
+      <ion-input type="number" formControlName="preco"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Categoria *</ion-label>
+      <ion-input formControlName="categoria"></ion-input>
+    </ion-item>
+
+    <!-- Extras -->
+    <ion-list>
+      <ion-item-divider>
+        <ion-label>Extras</ion-label>
+        <ion-button fill="clear" size="small" (click)="addExtra()">Adicionar</ion-button>
+      </ion-item-divider>
+    
+      <div *ngFor="let extra of getExtrasControls(); let i = index" [formGroup]="extra">
+        <ion-item>
+          <ion-input placeholder="Nome do extra" formControlName="nome"></ion-input>
+          <ion-input placeholder="Valor" type="number" formControlName="valor"></ion-input>
+          <ion-button fill="clear" color="danger" (click)="removeExtra(i)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+    </ion-list>    
+
+    <!-- Seleção da imagem -->
+    <ion-item>
+      <ion-label position="stacked">Imagem *</ion-label>
+      <ion-select formControlName="imagem" interface="popover" placeholder="Selecione uma imagem">
+        <ion-select-option *ngFor="let img of imagens" [value]="img.path">
+          {{ img.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div *ngIf="form.value.imagem" class="preview">
+      <img [src]="form.value.imagem" alt="Preview" />
+    </div>
+
+    <ion-button type="submit" expand="block" [disabled]="form.invalid">
+      Salvar Produto
+    </ion-button>
+  </form>
+</ion-content>

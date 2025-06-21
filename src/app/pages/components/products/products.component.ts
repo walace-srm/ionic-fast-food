@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { PedidoService } from '../../services/pedido/pedido.service';
 import { ProductService } from '../../services/products/producs.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -26,6 +27,7 @@ import { ProductService } from '../../services/products/producs.service';
   imports: [
     CommonModule,
     FormsModule,
+    RouterLink,
     IonCard,
     IonButton,
     IonToolbar,
@@ -90,149 +92,35 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getAll() {
     this.loading.set(true);
-    // Simulando chamada ao service (pode ser substituído por this.productService.getAll().subscribe(...))
-    this.produtos = [
-      {
-        id: 1,
-        nome: 'Numero 1',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado e 1 carne.',
-        preco: 11.00,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer1.png',
-        extras: [
-          { nome: 'Carne', valor: 2.5 },
-          { nome: 'Cheddar fatiado', valor: 2.0 },
-          { nome: 'Ovo', valor: 1.5 },
-          { nome: 'Bacon', valor: 2.0 }
-        ]
+    this.productService.getAll().subscribe({
+      next: (produtos) => {
+        this.produtos = produtos;
+        this.categorias = [
+          ...new Set(
+            produtos
+              .map(p => p.categoria)
+              .filter(c => !!c)
+          )
+        ];
+        this.categoriaSelecionada = this.categorias[0];
+        this.loading.set(false);
       },
-      {
-        id: 2,
-        nome: 'Numero 2',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado, 1 ovo e 2 carnes.',
-        preco: 13.50,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer2.png'
-      },
-      {
-        id: 3,
-        nome: 'Numero 3',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado e 1 carne.',
-        preco: 11.00,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer1.png'
-      },
-      {
-        id: 4,
-        nome: 'Numero 4',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado, 1 ovo e 2 carnes.',
-        preco: 13.50,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer2.png'
-      },
-      {
-        id: 5,
-        nome: 'Numero 5',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado e 1 carne.',
-        preco: 11.00,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer1.png'
-      },
-      {
-        id: 6,
-        nome: 'Numero 6',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado, 1 ovo e 2 carnes.',
-        preco: 13.50,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer2.png'
-      },
-      {
-        id: 7,
-        nome: 'Numero 7',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado e 1 carne.',
-        preco: 11.00,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer1.png'
-      },
-      {
-        id: 8,
-        nome: 'Numero 8',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado, 1 ovo e 2 carnes.',
-        preco: 13.50,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer2.png'
-      },
-      {
-        id: 9,
-        nome: 'Numero 9',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado e 1 carne.',
-        preco: 11.00,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer1.png'
-      },
-      {
-        id: 10,
-        nome: 'Numero 10',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado, 1 ovo e 2 carnes.',
-        preco: 13.50,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer2.png'
-      },
-      {
-        id: 11,
-        nome: 'Numero 11',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado e 1 carne.',
-        preco: 11.00,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer1.png'
-      },
-      {
-        id: 12,
-        nome: 'Numero 12',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado, 1 ovo e 2 carnes.',
-        preco: 13.50,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer2.png'
-      },
-      {
-        id: 13,
-        nome: 'Numero 13',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado e 1 carne.',
-        preco: 11.00,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer1.png'
-      },
-      {
-        id: 14,
-        nome: 'Numero 14',
-        descricao: 'Pão com gergilim, ketchup, mostarda, cebola, alface, tomate, presunto, cheddar fatiado, 1 ovo e 2 carnes.',
-        preco: 13.50,
-        categoria: 'hamburguer',
-        imagem: 'assets/images/burguer2.png'
-      },
-      {
-        id: 1,
-        nome: 'Guaraná natural',
-        descricao: 'Refresco de guaraná natural 290ml.',
-        preco: 3.00,
-        categoria: 'Bebidas',
-        imagem: 'assets/images/guaracamp.png'
-      },
-      {
-        id: 2,
-        nome: 'Refrigerante de guaraná',
-        descricao: 'Refrigerante de guaraná 2l.',
-        preco: 9,
-        categoria: 'Bebidas',
-        imagem: 'assets/images/guarana-antartica.png'
-      },
-    ];
-    this.categorias = [...new Set(this.produtos.map(p => p.categoria))];
-    this.loading.set(false);
+      error: (err) => {
+        console.error('Erro ao carregar produtos:', err);
+        this.loading.set(false);
+      }
+    });
   }
 
   adicionar(item: any) {
-    this.pedidoService.adicionarItem(item);
+    const itemPedido = {
+      ...item,
+      quantidade: 1,
+      extras: [],
+      total: item.preco
+    };
+
+    this.pedidoService.adicionarItem(itemPedido);
   }
 
   abrirModal(item: any) {

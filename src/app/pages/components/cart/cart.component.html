@@ -1,0 +1,57 @@
+
+
+<ion-content class="ion-padding">
+
+  <ion-list *ngIf="pedidoService.itens.length > 0; else vazio">
+    <ion-item *ngFor="let item of pedidoService.itens">
+      <ion-thumbnail slot="start">
+        <img [src]="item.imagem" />
+      </ion-thumbnail>
+
+      <ion-label>
+        <h2>{{ item.nome }}</h2>
+        <p *ngIf="item.extras?.length">
+          <ng-container *ngFor="let extra of item.extras">
+            + {{ extra.quantidade }}x {{ extra.nome }} (R$ {{ extra.valor | number: '1.2-2' }})<br />
+          </ng-container>
+        </p>
+        <strong>R$ {{ item.total | number: '1.2-2' }}</strong>
+      </ion-label>
+
+      <div class="quantidade-controller">
+        <ion-button fill="clear" size="small" (click)="decrementar(item)">
+          <ion-icon name="remove-outline"></ion-icon>
+        </ion-button>
+        <span>{{ item.quantidade }}</span>
+        <ion-button fill="clear" size="small" (click)="incrementar(item)">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-button fill="clear" color="danger" (click)="remover(item)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #vazio>
+    <div class="vazio">
+      <ion-icon name="cart-outline" size="large"></ion-icon>
+      <p>Seu carrinho está vazio.</p>
+    </div>
+  </ng-template>
+
+  <!-- 🔥 Footer dentro do content -->
+  <div class="footer" *ngIf="pedidoService.itens.length > 0">
+    <div class="footer-content">
+      <div class="footer-text">
+        <strong>Total: R$ {{ pedidoService.total | number: '1.2-2' }}</strong>
+      </div>
+      <ion-button expand="block">
+        <ion-icon slot="start" name="cash-outline"></ion-icon>
+        Continuar
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>

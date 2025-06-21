@@ -39,7 +39,7 @@
         <div class="footer-text">
           Total sem entrega ({{ pedidoService.totalItens }} itens - R$ {{ pedidoService.total | number:'1.2-2' }})
         </div>
-        <ion-button fill="solid">
+        <ion-button fill="solid" [routerLink]="['/carrinho']">
           <ion-icon slot="start" name="eye-outline"></ion-icon>
           Ver pedido
         </ion-button>

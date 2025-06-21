@@ -16,10 +16,12 @@ import { addIcons } from 'ionicons';
 import {
   add, addOutline,
   cart, cartOutline,
+  cashOutline,
   chevronBack,
   chevronForward,
   close,
   eyeOutline,
+  fastFoodOutline,
   heart, heartOutline,
   home, homeOutline,
   menu, menuOutline,
@@ -27,6 +29,7 @@ import {
   search,
   star, starOutline
 } from 'ionicons/icons';
+import { environment } from './environments/environment';
 
 registerLocaleData(localePt);
 
@@ -49,19 +52,10 @@ addIcons({
   starOutline,
   search,
   close,
-  eyeOutline
+  eyeOutline,
+  cashOutline,
+  fastFoodOutline
 });
-
-// 🔥 Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyBAnCRy0asqvkxOkpouI1lbqKXeLjSt9yI",
-  authDomain: "fast-food-38e89.firebaseapp.com",
-  databaseURL: "https://fast-food-38e89-default-rtdb.firebaseio.com",
-  projectId: "fast-food-38e89",
-  storageBucket: "fast-food-38e89.firebasestorage.app",
-  messagingSenderId: "587247956537",
-  appId: "1:587247956537:web:ce9599bb7a79dfd0f153e8"
-};
 
 // 🚀 Inicializa a aplicação
 bootstrapApplication(AppComponent, {
@@ -69,7 +63,7 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     { provide: LOCALE_ID, useValue: 'pt-BR' }

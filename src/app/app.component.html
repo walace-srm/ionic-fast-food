@@ -9,7 +9,7 @@
     <ion-list>
 
       <!-- Produtos -->
-      <ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
         <ion-item routerLink="/products" routerLinkActive="selected" (click)="fecharMenu()">
           <ion-icon slot="start" name="fast-food-outline"></ion-icon>
           <ion-label>Produtos</ion-label>
@@ -17,7 +17,7 @@
       </ion-menu-toggle>
 
       <!-- Carrinho com Badge -->
-      <ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
         <ion-item routerLink="/carrinho" routerLinkActive="selected" (click)="fecharMenu()">
           <ion-icon slot="start" name="cart-outline"></ion-icon>
           <ion-label>
